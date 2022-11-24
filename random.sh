@@ -1,20 +1,59 @@
-ar=(1 2 3 4 5 6 7 8 9)
-echo "original array"
-echo ${ar[@]}
+#store input number
 
-echo "Array in ascending order"
-for((i=0; i<${#ar[@]}; i++))
+read -p "Enter a number : " num
+
+#declare a blank array
+
+declare -a arr
+
+#initialize variable
+
+counter=0
+
+#extract factors
+
+for (( i=2; i<=num/2; i++ ))
+
 do
-for((j=0; j<${#ar[@]}-1; j++))
-do
-if [[ ${ar[j]} > ${ar[$((j+1))]} ]]
+
+if [ $((num%i)) -eq 0 ]
+
 then
-temp=${ar[j]}
-ar[$j]=${ar[$((j+1))]}
-ar[$((j+1))]=$temp
+
+flag=1
+
+#check if number is prime or not
+
+for (( j=2; j<=i/2; j++ ))
+
+do
+
+if [ $((i%j)) -eq 0 ]
+
+then
+
+flag=0
+
+break
+
 fi
+
 done
+
+#if number is prime store it in array
+
+if [ $flag -eq 1 ]
+
+then
+
+arr[((counter++))]=$i
+
+fi
+
+fi
+
 done
-echo ${ar[@]}
-echo "second largest element : ${ar[8]}"
-echo "second smallest element : ${ar[1]}"
+
+#display array
+
+echo ${arr[@]}
